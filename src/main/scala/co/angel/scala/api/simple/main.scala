@@ -1,12 +1,8 @@
 package co.angel.scala.api.simple
 
 import org.json4s.DefaultFormats
-import org.json4s.JValue
+
 import co.angel.scala.api.util.OAuthClient
-import org.json4s.JArray
-import co.angel.scala.api.util.AngelListPager
-import co.angel.scala.api.util.ALUtil
-import java.util.Date
 
 class Api( token:String ){ s =>
 

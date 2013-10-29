@@ -27,30 +27,30 @@ class OAuthClient( private val bearerToken:String ) { s =>
   private implicit def str2genericURL( str:String ) = new GenericUrl( str )
   
   
-  private lazy val rf = {
-    val transport = new NetHttpTransport( )
-    val m = BearerToken.authorizationHeaderAccessMethod( )
-    val credential = new Credential( m ) setAccessToken bearerToken
-    transport createRequestFactory credential
-  }
+  private lazy val rf =
+    new NetHttpTransport createRequestFactory
+      new Credential( BearerToken.authorizationHeaderAccessMethod ).setAccessToken(bearerToken)
   
-  private def resolveURL( url:String, queryParams:Map[String,String] = Map.empty ) = {
+  private def resolveURL( url:String, queryParams: Map[String,String] = Map.empty ) = {
+    
     val u = if ( url startsWith "https://" ) url else "https://api.angel.co/1" + url  
+    
     // add query params to URL if needed
     val qs = if ( ! queryParams.isEmpty )
         "?" + ALUtil.paramsToQueryString(queryParams)
       else ""
     u + qs
+  
   }
   
-  val GET = new HttpMethod()
-  val POST = new HttpMethod()
+  val GET    = new HttpMethod()
+  val POST   = new HttpMethod()
   val DELETE = new HttpMethod()
   
   def req(
     url:            String,
     queryParams:    Map[String, String]  = Map.empty,
-    method:         HttpMethod         = GET,
+    method:         HttpMethod           = GET,
     bodyParams:     Map[String,String]   = Map.empty 
   ) = {
     
@@ -80,19 +80,22 @@ class OAuthClient( private val bearerToken:String ) { s =>
       
       // No extraction to case classes
       def pagedJson( propName:String ) = {
+        
         // special case. we basically use a completely different logic here
+        
         if ( method != GET ) throw new IllegalArgumentException("You can only page over a GET request")
-        def pageToJson:( Int=>JValue ) = (i:Int) => {
-          val qp2 = queryParams + ( "page" -> i.toString )
-          requestToJson( rf buildGetRequest resolveURL( url, qp2 ) )
-        }
-        AngelListPager( pageToJson, propName )  
+        
+        def pageToJson:( Int=>JValue ) = (i:Int) =>
+          requestToJson( rf buildGetRequest resolveURL( url, queryParams + ( "page" -> i.toString ) ) )
+        
+        AngelListPager( pageToJson, propName )
+        
       }
     }
   }
 
   private def requestToJson( req:HttpRequest ) = parse( requestToString( req ) )
-    
+  
   private def requestToString( req:HttpRequest ):String = {
     val writer = new StringWriter
     IOUtils.copy( req.execute.getContent, writer, "UTF8" )
@@ -102,5 +105,5 @@ class OAuthClient( private val bearerToken:String ) { s =>
 }
 
 object OAuthClient {
-  def apply( bearerToken:String ):OAuthClient = new OAuthClient( bearerToken )
+  def apply( bearerToken:String ) = new OAuthClient( bearerToken )
 }
