@@ -1,0 +1,84 @@
+
+# Overview
+
+I built this during an afternoon to force me to understand the data
+model behind the Angel List API.
+
+Since Scala is not a popular language amongst startups I will probably
+leave this up to here and eventually keep on going on-demand.
+If you actually need this let me know. If you are sufficiently convincing
+you may get me to finish it.
+
+The basic strategy is as follows:
+
+1. Create a thin typesafe wrapper atop the REST+JSON services exposed by the API
+2. Create an OO layer on top
+
+The simple wrapper is located in the `co.angel.scala.api.simple.*` package.
+The OO layer is in the `co.angel.scala.api.oo.*` package.
+
+The services layer is half way there and it shouldn't be hard to finish.
+It is organized following the structure in the [Api website](https://angel.co/api).
+
+# Disclaimer
+
+* This library is NOT ENDORSED or mantained by Angel List. It's a personal hack.
+* It is FAR from production ready. Don't be stupid. Really.
+* The services layer uses a denormalized approach to DTOs/Case Classes. It is pretty ugly
+  and certainly not idiomatic. But The idea is to wrap each service
+  atomically by capturing its semantics and nuances as close to the source as possible.
+  Integration can be built above this typesafe layer.
+* If you start building algebraic expressions with the collections API you will most certainly
+  break things. ( TODO: We should add throttling to the low level client eventually. )
+
+# Examples
+
+```scala
+
+val api = new Api( "insert your token here" )
+// you can get a 'bearer' oauth2 token here: https://angel.co/api/oauth/clients
+
+
+// the description of the first 10 entries in the personalized
+// feed of the current user
+api.feed.personalized.take(10).map( _.description ).mkString("\n")
+
+// note that all collections are lazy / non strict
+val entries = api.feed.personalized
+
+// getting the length will fetch only the first page
+// the length is included on each page
+println( entries.length ) // --> 150
+
+  
+// We map over the description accessor to create
+// a new list. this will NOT go the the server
+val descriptions = entries.map( _.description )
+
+// in fact we can keep on mapping
+val descriptionsUC = descriptions.map( _.toUpperCase)
+
+// ok let's get the first 10 values and print them
+descriptionsUC.take( 10 ).mkString
+
+```
+
+# More examples
+
+```scala
+
+// the number of followrs of user "671"
+api.follows.user( "671" ).followers.users.ids().length
+
+// who is user 671?
+api.users.user("671").name
+
+// jobs for startup 6702
+api.jobs.for_startup("6702").map( _.title ).mkString("\n")
+
+// startup 6702?
+api.startups.startup("6702")
+
+// and so on...
+
+```
