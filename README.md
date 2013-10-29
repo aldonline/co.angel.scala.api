@@ -48,7 +48,7 @@ brew install sbt
 
 # grab the code
 git clone https://github.com/aldonline/co.angel.scala.api.git
-cd co.angel.scala.api.git
+cd co.angel.scala.api
 
 # start the console
 # Note: if this thing worked, which would mean that SBT a lot smarter than I thought
