@@ -19,7 +19,7 @@ trait Service extends BaseService {
     client.req( "/search", queryParams = Map( "query" -> query, "type" -> `type` ) ).arr[Item]
   
   def searchSlugs( query:String ) =
-    client.req( "/search/slugs", queryParams = Map( "query" -> query ) ).arr[Item]
+    client.req( "/search/slugs", queryParams = Map( "query" -> query ) ).one[Item]
   
 }
 
