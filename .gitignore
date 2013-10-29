@@ -4,3 +4,4 @@
 .worksheet
 target
 local-notes.md
+src/main/scala/sandbox.sc
