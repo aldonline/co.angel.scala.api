@@ -113,3 +113,39 @@ api.startups.startup("6702")
 // and so on...
 
 ```
+
+The following example hits the `/feed` service, filters our one specific kind of entry,
+and then hits the `/jobs` service. Not very performant, but it makes a for a nice example.
+
+```scala
+
+  val xs = for {
+    entry <- api.feed.personalized               // get feed entries
+    if ( entry.item.`type` == "JobListing" )     // retain only "JobListing"s
+    id <- entry.item.ids                         // get the associated IDs
+    job = api.jobs.get( id )                     // for each ID hit the /jobs service
+    startup <- job.startup                       // and extract the startup associated with each job
+  } yield {
+      // with the data we extracted, lets yield an HTML snippet
+      <div>
+        <h2>{job.title} @ {startup.name}</h2>
+        <div>Salary from
+            <span>{job.salary_min.getOrElse("")}</span>
+             to
+            <span>{job.salary_max.getOrElse("")}</span>
+        </div>
+     </div>                                        
+   }
+  
+   // now lets put every entry inside an unodered list ( `ul > li` )
+   val res =
+     <ul>
+      {xs.take(3).map( n =>
+        <li>
+          { n.asInstanceOf[scala.xml.Node] }
+        </li> ) }
+     </ul>
+
+
+```
+
