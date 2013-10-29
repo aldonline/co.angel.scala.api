@@ -1,7 +1,7 @@
 # Overview
 
 I built this during an afternoon to force me to understand the data
-model behind the Angel List API. 
+model behind the [Angel List API](http://angel.co/api). 
 
 IT IS NOT COMPLETE
 ( Probably half way there )
@@ -20,7 +20,7 @@ The simple wrapper is located in the `co.angel.scala.api.simple.*` package.
 The OO layer is in the `co.angel.scala.api.oo.*` package.
 
 The services layer is half way there and it shouldn't be hard to finish.
-It is organized following the structure in the [Api website](https://angel.co/api).
+It is organized following the structure on the [Api Documentation Website](https://angel.co/api).
 
 # Disclaimer
 
@@ -29,7 +29,7 @@ It is organized following the structure in the [Api website](https://angel.co/ap
 * The services layer uses a denormalized approach to DTOs/Case Classes. It is pretty ugly
   and certainly not idiomatic. But The idea is to wrap each service
   atomically by capturing its semantics and nuances as close to the source as possible.
-  Integration can be built above this typesafe layer.
+  Integration/Normalization can be built above this typesafe layer.
 * If you start building algebraic expressions with the collections API you will most certainly
   break things. ( TODO: We should add throttling to the low level client eventually. )
 
@@ -98,7 +98,7 @@ descriptionsUC.take( 10 ).mkString
 
 ```scala
 
-// the number of followrs of user "671"
+// the number of followers of user "671"
 api.follows.user( "671" ).followers.users.ids().length
 
 // who is user 671?
