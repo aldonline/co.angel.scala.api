@@ -31,21 +31,14 @@ class OAuthClient( private val bearerToken:String ) { s =>
     new NetHttpTransport createRequestFactory
       new Credential( BearerToken.authorizationHeaderAccessMethod ).setAccessToken(bearerToken)
   
-  private def resolveURL( url:String, queryParams: Map[String,String] = Map.empty ) = {
-    
-    val u = if ( url startsWith "https://" ) url else "https://api.angel.co/1" + url  
-    
-    // add query params to URL if needed
-    val qs = if ( ! queryParams.isEmpty )
-        "?" + ALUtil.paramsToQueryString(queryParams)
-      else ""
-    u + qs
+  private def resolveURL( url:String, queryParams: Map[String,String] = Map.empty ) =
+    ( if ( url startsWith "https://" ) url else "https://api.angel.co/1" + url ) + // prepend base if necessary
+      ( if ( queryParams.nonEmpty ) "?" + ALUtil.paramsToQueryString(queryParams) else "" ) // append query params if present
   
-  }
   
-  val GET    = new HttpMethod()
-  val POST   = new HttpMethod()
-  val DELETE = new HttpMethod()
+  val GET    = new HttpMethod
+  val POST   = new HttpMethod
+  val DELETE = new HttpMethod
   
   def req(
     url:            String,
