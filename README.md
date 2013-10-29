@@ -114,8 +114,8 @@ api.startups.startup("6702")
 
 ```
 
-The following example hits the `/feed` service, filters our one specific kind of entry,
-and then hits the `/jobs` service. Not very performant, but it makes a for a nice example.
+The following example hits the `/feed` service, filters out one specific kind of entry,
+and then hits the `/jobs` service. Not necessarily a good idea, but it makes a for a nice example.
 
 ```scala
 
@@ -137,7 +137,7 @@ and then hits the `/jobs` service. Not very performant, but it makes a for a nic
      </div>                                        
    }
   
-   // now lets put every entry inside an unodered list ( `ul > li` )
+   // now lets put the first three entries inside an unordered list ( `ul > li` )
    val res =
      <ul>
       {xs.take(3).map( n =>
