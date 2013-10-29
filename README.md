@@ -1,4 +1,3 @@
-
 # Overview
 
 I built this during an afternoon to force me to understand the data
@@ -30,6 +29,35 @@ It is organized following the structure in the [Api website](https://angel.co/ap
   Integration can be built above this typesafe layer.
 * If you start building algebraic expressions with the collections API you will most certainly
   break things. ( TODO: We should add throttling to the low level client eventually. )
+
+# Setup
+
+Not sure if this works ( my machine has Scala and other stuff already installed so I can't test this.
+  Please try, learn, and then Pull request as necessary ).
+
+Naive attempt:
+
+```shell
+
+# Get the latest Java
+# ( Yeah. It sucks. But think about this: You will be one step closer to using Clojure as well )
+
+# install the Scala Build Tool 
+# http://www.scala-sbt.org/release/docs/Getting-Started/Setup.html
+brew install sbt
+
+# grab the code
+git clone https://github.com/aldonline/co.angel.scala.api.git
+cd co.angel.scala.api.git
+
+# start the console
+# Note: if this thing worked, which would mean that SBT a lot smarter than I thought
+# this step will download half of the internet.
+sbt console
+
+# and now you should be ready to try the examples below
+
+```
 
 # Examples
 
