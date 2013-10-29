@@ -66,7 +66,7 @@ sbt console
 
 ```scala
 
-val api = new Api( "insert your token here" )
+val api = new co.angel.scala.api.simple.Api( "insert your token here" )
 // you can get a 'bearer' oauth2 token here: https://angel.co/api/oauth/clients
 
 
