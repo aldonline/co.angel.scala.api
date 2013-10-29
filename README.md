@@ -1,7 +1,10 @@
 # Overview
 
 I built this during an afternoon to force me to understand the data
-model behind the Angel List API.
+model behind the Angel List API. 
+
+IT IS NOT COMPLETE
+( Probably half way there )
 
 Since Scala is not a popular language amongst startups I will probably
 leave this up to here and eventually keep on going on-demand.
