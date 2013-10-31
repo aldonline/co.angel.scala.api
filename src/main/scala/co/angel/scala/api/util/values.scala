@@ -1,5 +1,7 @@
 package co.angel.scala.api.util
 
+import org.apache.commons.codec.digest.DigestUtils
+
 object values {
 
   trait ALStringValue {
@@ -10,7 +12,7 @@ object values {
   case class ALId( str:String ) extends ALStringValue
   case class ALSlug( str:String ) extends ALStringValue
   case class ALEmail( str:String ) extends ALStringValue {
-    def md5Hash:String = "" // TODO!!!
+    lazy val md5Hash = ALMD5Hash( DigestUtils.md5Hex( str ) )
   }
   case class ALMD5Hash( str:String ) extends ALStringValue
   case class ALBearerToken( str:String ) extends ALStringValue 

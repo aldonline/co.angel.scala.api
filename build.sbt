@@ -13,3 +13,5 @@ libraryDependencies += "org.json4s" %% "json4s-native" % "3.2.5"
 libraryDependencies += "org.apache.commons" % "commons-io" % "1.3.2"
 
 libraryDependencies += "org.apache.httpcomponents" % "httpclient" % "4.3.1"
+
+libraryDependencies += "commons-codec" % "commons-codec" % "1.7"
