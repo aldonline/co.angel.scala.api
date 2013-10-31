@@ -3,16 +3,17 @@ package co.angel.scala.api.simple.services.jobs
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
 
 trait Service extends BaseService {
   def all = client.req( "/jobs" ).paged[Job]("jobs")
   
-  def get( id:String ) = client.req( "/jobs/" + id ).one[Job]
+  def get( id:ALId ) = client.req( "/jobs/" + id ).one[Job]
   
-  def for_location_tag( location_tag_id:String ) =
+  def for_location_tag( location_tag_id:ALId ) =
     client.req( "/tags/" + location_tag_id + "/jobs" ).paged[Job]("jobs")
   
-  def for_startup( startup_id:String ) =
+  def for_startup( startup_id:ALId ) =
     client.req("/startups/" + startup_id + "/jobs").arr[Job]
 }
 

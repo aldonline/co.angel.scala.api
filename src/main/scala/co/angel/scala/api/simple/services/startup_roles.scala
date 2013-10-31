@@ -5,17 +5,18 @@ package co.angel.scala.api.simple.services.startup_roles
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
 
 trait Service extends BaseService {
 
-  def startup( id:String ){
+  def startup( id:ALId ){
     new Object {
       
       // the tagged element is this startup
       // interesting bit is the other one
       // which can be a startup or a user
       def outgoing = {
-        val m = Map( "startup_id" -> id, "direction" -> "outgoing" )
+        val m = Map[String,String]( "startup_id" -> id, "direction" -> "outgoing" )
         client.req("/startup_roles", queryParams = m )
       }
       
@@ -37,14 +38,14 @@ trait Service extends BaseService {
   /**
    * All roles for a user have tagged=this_user and startup=interesting_startup
    */
-  def user( id:String ){
+  def user( id:ALId ){
     new Object {
       def all( ) = {
-        val m = Map( "user_id" -> id , "v" -> "1" )
+        val m = Map[String, String]( "user_id" -> id , "v" -> "1" )
         client.req( "/startup_roles", m ).paged[Role]("startup_roles") // only startups
       }
       def byRoleType( role: String ) = {
-        val m = Map( "user_id" -> id, "role" -> role, "v" -> "1" )
+        val m = Map[String,String]( "user_id" -> id, "role" -> role, "v" -> "1" )
         client.req( "/startup_roles", m ).paged[Role]("startup_roles") // only startups
       }
     }

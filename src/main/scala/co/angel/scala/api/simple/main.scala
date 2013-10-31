@@ -1,10 +1,11 @@
 package co.angel.scala.api.simple
 
+import co.angel.scala.api.util.values._
 import org.json4s.DefaultFormats
 
 import co.angel.scala.api.util.OAuthClient
 
-class Api( token:String ){ s =>
+class Api( token:ALBearerToken ){ s =>
 
   private lazy val client = OAuthClient( token )
   

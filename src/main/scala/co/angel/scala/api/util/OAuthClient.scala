@@ -16,11 +16,11 @@ TODO: handle other http status codes
 TODO: gzip
 
 */
-
+import co.angel.scala.api.util.values._
 
 class HttpMethod
 
-class OAuthClient( private val bearerToken:String ) { s =>
+class OAuthClient( private val bearerToken:ALBearerToken ) { s =>
     
   private implicit lazy val formats =  DefaultFormats
   // some implicits to make our lifes easier
@@ -98,5 +98,5 @@ class OAuthClient( private val bearerToken:String ) { s =>
 }
 
 object OAuthClient {
-  def apply( bearerToken:String ) = new OAuthClient( bearerToken )
+  def apply( bearerToken:ALBearerToken ) = new OAuthClient( bearerToken )
 }

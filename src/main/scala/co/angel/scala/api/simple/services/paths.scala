@@ -6,7 +6,7 @@ import org.json4s._
 import org.json4s.jvalue2extractable
 
 import co.angel.scala.api.simple.BaseService
-
+import co.angel.scala.api.util.values._
 
 object Direction extends Enumeration {
   type Direction = Value
@@ -19,14 +19,14 @@ trait Service extends BaseService {
 
   val _Direction = Direction
   
-  def users( ids:Seq[String], direction:Direction ) = m( ids, "user_ids", direction )
-  def startups( ids:Seq[String], direction:Direction ) = m( ids, "startup_ids", direction )
+  def users( ids:Seq[ALId], direction:Direction ) = m( ids, "user_ids", direction )
+  def startups( ids:Seq[ALId], direction:Direction ) = m( ids, "startup_ids", direction )
   
-  private def m( ids:Seq[String], prop:String, direction:Direction ):Map[String,List[Path]] = {
+  private def m( ids:Seq[ALId], prop:String, direction:Direction ):Map[String,List[Path]] = {
     val x = client.req(
         "/paths",
         queryParams = Map(
-            prop -> ids.mkString(","),
+            prop -> ids.map(_.str).mkString(","),
             "direction" -> direction.toString
         )).oneJson
     val keys = x.values.asInstanceOf[Map[String,_]].keys

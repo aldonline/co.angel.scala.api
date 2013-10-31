@@ -1,5 +1,6 @@
 package co.angel.scala.api.simple.services.reviews
 
+import co.angel.scala.api.util.values._
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
@@ -7,10 +8,10 @@ import scala.collection.SeqView
 
 trait Service extends BaseService {
 
-  private def m( user_id: Option[String] ) = {
+  private def m( user_id: Option[ALId] ) = {
     val queryParams = user_id match {
       case None => Map.empty[String,String]
-      case Some(id) => Map( "user" -> id )
+      case Some(id) => Map( "user" -> id.str )
     }
     // 1. first request to get total positives ( yes, we could avoid this query )
     val total_pos = client.req( "/reviews", queryParams = queryParams ).one[TotalPositive].total_positive
@@ -21,7 +22,7 @@ trait Service extends BaseService {
   }
   
   def forMe( ) = m( None )
-  def forUser( id:String ) = m( Some(id) )
+  def forUser( id:ALId ) = m( Some(id) )
 }
 
 class ReviewReport(

@@ -1,5 +1,6 @@
 package co.angel.scala.api.simple.services.intros
 
+import co.angel.scala.api.util.values._
 import java.util.Date
 import org.json4s._
 import org.json4s.native.JsonMethods._
@@ -8,7 +9,7 @@ import co.angel.scala.api.util._
 import co.angel.scala.api.simple._
 
 trait Service extends BaseService {
-  def create( startup_id:String, note:String ): Intro =
+  def create( startup_id:ALId, note:String ): Intro =
     client.req(
       url = "/intros",
       bodyParams = Map("startup_id" -> startup_id, "note" -> note),

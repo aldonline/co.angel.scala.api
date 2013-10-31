@@ -6,7 +6,7 @@ import org.json4s.native.JsonMethods._
 import org.json4s.JsonDSL._
 import co.angel.scala.api.util._
 import co.angel.scala.api.simple._
-
+import co.angel.scala.api.util.values._
 
 
 // "user", "startup", "User", "Startup"
@@ -23,7 +23,7 @@ trait Service extends BaseService {
 
   val _Type = Type
   
-  def startFollowing( _type:Type, _id:String ): Follow =
+  def startFollowing( _type:Type, _id:ALId ): Follow =
     client.req(
       "/follows",
       method = client.POST,
@@ -34,7 +34,7 @@ trait Service extends BaseService {
     ).one[Follow]
   
   
-  def stopFollowing( _type:Type, id:String ): Follow =
+  def stopFollowing( _type:Type, id:ALId ): Follow =
     client.req(
       "/follows",
       method = client.DELETE,
@@ -45,7 +45,7 @@ trait Service extends BaseService {
     ).one[Follow]
   
   // GET https://api.angel.co/1/follows/relationship?source_id=671&target_type=User&target_id=2
-  def relationship( source_id:String, target_type:Type, target_id:String ) =
+  def relationship( source_id:ALId, target_type:Type, target_id:ALId ) =
     client.req(
       "/follows/relationship",
       Map(

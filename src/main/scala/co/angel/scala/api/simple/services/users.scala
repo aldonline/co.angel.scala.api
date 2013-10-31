@@ -4,6 +4,7 @@ package co.angel.scala.api.simple.services.users
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
 
 
 object TagInclusion extends Enumeration {
@@ -29,20 +30,20 @@ trait Service extends BaseService {
   
   def me():User = client.req("/me",  queryParams = d).one[User]
   
-  def user( id:String ) =
+  def user( id:ALId ) =
     client.req( "/users/" + id, queryParams = d ).one[User]
   
-  def batch( ids:List[String] ) = client.req(
+  def batch( ids:List[ALId] ) = client.req(
       "/users/batch",
       queryParams = Map(
           "ids" -> ids.mkString(","),
           "include_details" -> "investor"
           ) ).arr[User]
 
-  def roles( id:String ) =
+  def roles( id:ALId ) =
     client.req( "/users/" + id + "/roles" ).paged[Role]("startup_roles")
     
-  def findBySlug( slug: String ) =
+  def findBySlug( slug: ALSlug ) =
     client.req( "/users/search", queryParams = Map( "slug" -> slug  ) ).one[User]
   
   def findByEmailMD5Hash( emailMD5Hash: String ) =

@@ -3,13 +3,14 @@ package co.angel.scala.api.simple.services.talent
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
 
 trait Service extends BaseService {
 
   def startups =
     client.req( "/talent/startups" ).one[StartupsResult]
   
-  def candidates( startup_id: String ) =
+  def candidates( startup_id: ALId ) =
     client.req(
         "/talent/candidates",
         queryParams = Map( "startup_id" -> startup_id )

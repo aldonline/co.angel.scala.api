@@ -4,14 +4,16 @@ import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
 
+import co.angel.scala.api.util.values._
+
 trait Service extends BaseService {
-  def forStartup( startup_id:String ) =
+  def forStartup( startup_id:ALId ) =
     client.req(
         "/press",
         queryParams = Map( "startup_id" -> startup_id)
         ).paged[Press]("press")
 
-  def get( id:String ) = client.req( "/press/" + id ).one[Press]
+  def get( id:ALId ) = client.req( "/press/" + id ).one[Press]
   
 }
 

@@ -1,5 +1,6 @@
 package co.angel.scala.api.simple.services.feed
 
+import co.angel.scala.api.util.values._
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService

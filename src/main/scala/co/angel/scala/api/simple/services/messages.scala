@@ -1,5 +1,6 @@
 package co.angel.scala.api.simple.services.messages
 
+import co.angel.scala.api.util.values._
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
@@ -15,7 +16,7 @@ trait Service extends BaseService {
   def inbox  = _m("inbox")
   def sent   = _m("sent")
   
-  def thread( id: String ) = client.req( "/messages/" + id ).one[Thread]
+  def thread( id: ALId ) = client.req( "/messages/" + id ).one[Thread]
 }
 
 case class Thread(

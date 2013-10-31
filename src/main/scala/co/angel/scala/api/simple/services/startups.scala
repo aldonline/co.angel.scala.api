@@ -4,7 +4,7 @@ import java.util.Date
 import java.net._
 
 import co.angel.scala.api.simple.BaseService
-
+import co.angel.scala.api.util.values._
 
 object Direction extends Enumeration {
   type Direction = Value
@@ -17,11 +17,11 @@ trait Service extends BaseService {
   
   val _Direction = Direction
   
-  def get( id:String ) = client.req( "/startups/" + id ).one[Startup]
+  def get( id:ALId ) = client.req( "/startups/" + id ).one[Startup]
   
-  def comments( id:String ) = client.req("/startups/" + id + "/comments").arr[Comment]
+  def comments( id:ALId ) = client.req("/startups/" + id + "/comments").arr[Comment]
   
-  def roles( id:String, direction:Direction = Direction.outgoing ) =
+  def roles( id:ALId, direction:Direction = Direction.outgoing ) =
     client.req(
         "/startups/" + id + "/roles",
         queryParams = Map( "direction" -> direction.toString )

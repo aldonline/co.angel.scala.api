@@ -3,6 +3,7 @@ package co.angel.scala.api.simple.services.likes
 import java.util.Date
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
 
 object Type extends Enumeration {
   type Type = Value
@@ -14,7 +15,7 @@ trait Service extends BaseService {
   
   val _Type = Type
   
-  def get( likable_type:Type, likable_id:String ) =
+  def get( likable_type:Type, likable_id:ALId ) =
     client.req(
         "/likes",
         queryParams = Map(
@@ -23,7 +24,7 @@ trait Service extends BaseService {
         )
      ).paged[Like]("likes")
   
-  def create( likable_type:Type, likable_id:String ) =
+  def create( likable_type:Type, likable_id:ALId ) =
     client.req(
         "/likes",
         bodyParams = Map(
@@ -33,7 +34,7 @@ trait Service extends BaseService {
         
     ).one[Like]
   
-  def delete( like_id: String ) = 
+  def delete( like_id: ALId ) = 
     client.req(
       url = "/likes/" + like_id,
       method = client.DELETE    

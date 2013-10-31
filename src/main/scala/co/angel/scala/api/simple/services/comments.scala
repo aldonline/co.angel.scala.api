@@ -6,6 +6,8 @@ import org.json4s.JArray
 import org.json4s.jvalue2extractable
 
 import co.angel.scala.api.simple.BaseService
+import co.angel.scala.api.util.values._
+
 
 object Type extends Enumeration {
   type Type = Value
@@ -17,7 +19,7 @@ trait Service extends BaseService {
   
   val _Type = Type
   
-  def find( commentable_type:Type, commentable_id:String ) =
+  def find( commentable_type:Type, commentable_id:ALId ) =
     client.req(
       url = "/comments",
       queryParams = Map(
@@ -28,7 +30,7 @@ trait Service extends BaseService {
   
   def create(
       commentable_type:Type,
-      commentable_id:String,
+      commentable_id:ALId,
       comment:String ):Comment =
     client.req(
         url = "/comments",
@@ -40,7 +42,7 @@ trait Service extends BaseService {
          )
       ).one[Comment]
   
-  def delete( comment_id:String ) =
+  def delete( comment_id:ALId ) =
     client.req(
       url =  "/comments/" + comment_id,
       method = client.DELETE
