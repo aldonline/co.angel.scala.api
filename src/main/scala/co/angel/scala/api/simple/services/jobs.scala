@@ -6,9 +6,9 @@ import co.angel.scala.api.simple.BaseService
 import co.angel.scala.api.util.values._
 
 trait Service extends BaseService {
-  def all = client.req( "/jobs" ).paged[Job]("jobs")
+  def find = client.req( "/jobs" ).paged[Job]("jobs")
   
-  def get( id:ALId ) = client.req( "/jobs/" + id ).one[Job]
+  def find( id:ALId ) = client.req( "/jobs/" + id ).one[Job]
   
   def for_location_tag( location_tag_id:ALId ) =
     client.req( "/tags/" + location_tag_id + "/jobs" ).paged[Job]("jobs")

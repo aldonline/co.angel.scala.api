@@ -8,16 +8,16 @@ trait Service extends BaseService {
   def search( query:String ) =
     client.req( "/search", queryParams = Map( "query" -> query ) ).arr[Item]
 
-  def searchSlugs( slug:ALSlug ) =
+  def search( slug:ALSlug ) =
     client.req( "/search/slugs", queryParams = Map( "query" -> slug ) ).one[Item]
   
   private def s(`type`:String)(query:String) =
     client.req( "/search", queryParams = Map( "query" -> query, "type" -> `type` ) ).arr[Item]
     
-  val searchUser = s("User")_
-  val searchStartup = s("Startup")_
-  val searchMarketTag = s( "MarketTag")_
-  val searchLocationTag = s("LocationTag")_
+  val search_user = s("User")_
+  val search_start = s("Startup")_
+  val search_market_tag = s( "MarketTag")_
+  val search_location_tag = s("LocationTag")_
   
 }
 

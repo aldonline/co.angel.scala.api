@@ -45,7 +45,7 @@ trait OOApi { root =>
     // -------- follows
     def followers           = api.follows.startup( id ).followers.users // map to users
     def doIFollow:Boolean   = api.follows.relationship( me.id, api.follows._Type.Startup, id ).source.isDefined
-    def startFollowing:Unit = api.follows.startFollowing( api.follows._Type.Startup, id )
+    def startFollowing:Unit = api.follows.start_following( api.follows._Type.Startup, id )
     def followsMe:Boolean   = api.follows.relationship( me.id, api.follows._Type.Startup, id ).target.isDefined
     
     // -------- comments
@@ -63,7 +63,7 @@ trait OOApi { root =>
     
     def jobs = api.jobs.for_startup( id )
     
-    def press = api.press.forStartup( id )
+    def press = api.press.for_startup( id )
     
   }
   
@@ -98,7 +98,7 @@ trait OOApi { root =>
     def investorOf:List[Startup]
     def pastInvestorOf:List[Startup]
     def followers = api.follows.user(id).followers.users
-    def reviews = api.reviews.forUser( id )
+    def reviews = api.reviews.for_user( id )
   }
   
   trait Review {

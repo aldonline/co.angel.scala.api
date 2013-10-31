@@ -44,7 +44,7 @@ trait Service extends BaseService {
         val m = Map[String, String]( "user_id" -> id , "v" -> "1" )
         client.req( "/startup_roles", m ).paged[Role]("startup_roles") // only startups
       }
-      def byRoleType( role: String ) = {
+      def by_role_type( role: String ) = {
         val m = Map[String,String]( "user_id" -> id, "role" -> role, "v" -> "1" )
         client.req( "/startup_roles", m ).paged[Role]("startup_roles") // only startups
       }

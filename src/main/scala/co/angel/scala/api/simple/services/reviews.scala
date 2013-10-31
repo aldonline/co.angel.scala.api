@@ -21,8 +21,8 @@ trait Service extends BaseService {
     new ReviewReport( total_pos, pager ) 
   }
   
-  def forMe( ) = m( None )
-  def forUser( id:ALId ) = m( Some(id) )
+  def for_me( ) = m( None )
+  def for_user( id:ALId ) = m( Some(id) )
 }
 
 class ReviewReport(

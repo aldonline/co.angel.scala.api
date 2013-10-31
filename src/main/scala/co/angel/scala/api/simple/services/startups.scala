@@ -17,7 +17,7 @@ trait Service extends BaseService {
   
   val _Direction = Direction
   
-  def get( id:ALId ) = client.req( "/startups/" + id ).one[Startup]
+  def find( id:ALId ) = client.req( "/startups/" + id ).one[Startup]
   
   def comments( id:ALId ) = client.req("/startups/" + id + "/comments").arr[Comment]
   

@@ -15,7 +15,7 @@ trait Service extends BaseService {
   
   val _Type = Type
   
-  def get( likable_type:Type, likable_id:ALId ) =
+  def find( likable_type:Type, likable_id:ALId ) =
     client.req(
         "/likes",
         queryParams = Map(

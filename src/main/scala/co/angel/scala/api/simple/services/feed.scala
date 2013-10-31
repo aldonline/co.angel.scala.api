@@ -18,8 +18,8 @@ trait Service extends BaseService {
     ).paged[Entry]("feed")
   
   // TODO: we need a different kind of pager for this
-  def allSince( d:Date ) = null
-  def personalizedSince( d:Date ) = null
+  def all_since( d:Date ) = null
+  def personalized_since( d:Date ) = null
 }
 
 

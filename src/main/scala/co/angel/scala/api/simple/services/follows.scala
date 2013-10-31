@@ -23,7 +23,7 @@ trait Service extends BaseService {
 
   val _Type = Type
   
-  def startFollowing( _type:Type, _id:ALId ): Follow =
+  def start_following( _type:Type, _id:ALId ): Follow =
     client.req(
       "/follows",
       method = client.POST,
@@ -34,7 +34,7 @@ trait Service extends BaseService {
     ).one[Follow]
   
   
-  def stopFollowing( _type:Type, id:ALId ): Follow =
+  def stop_following( _type:Type, id:ALId ): Follow =
     client.req(
       "/follows",
       method = client.DELETE,

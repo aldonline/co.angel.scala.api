@@ -30,7 +30,7 @@ trait Service extends BaseService {
   
   def me():User = client.req("/me",  queryParams = d).one[User]
   
-  def user( id:ALId ) =
+  def find( id:ALId ) =
     client.req( "/users/" + id, queryParams = d ).one[User]
   
   def batch( ids:List[ALId] ) = client.req(
@@ -43,14 +43,16 @@ trait Service extends BaseService {
   def roles( id:ALId ) =
     client.req( "/users/" + id + "/roles" ).paged[Role]("startup_roles")
     
-  def findBySlug( slug: ALSlug ) =
+  def find_by_slug( slug: ALSlug ):User =
     client.req( "/users/search", queryParams = Map( "slug" -> slug  ) ).one[User]
   
-  def findByEmailMD5Hash( emailMD5Hash: String ) =
+  def find_by_email_hash( emailMD5Hash: ALMD5Hash ):User =
     client.req( "/users/search", queryParams = Map( "md5" -> emailMD5Hash  ) ).one[User]
   
-  def forTag(
-    tag_id: String,
+  def find_by_email( email: ALEmail ) = find_by_email_hash( email.md5Hash )
+  
+  def find(
+    tag_id: ALId,
     include: TagInclusion = TagInclusion.none,
     investors: InvestorFilter = InvestorFilter.none
     ) = {
